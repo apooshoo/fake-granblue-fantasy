@@ -475,3 +475,307 @@ class Game extends React.Component {
 }
 
 export default Game;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// class Game extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//         laneCoords: [null, null, null],
+//         characterPortraitsCoords: [null, null, null],
+//         characterSpriteCoords: [null, null, null],
+//         characterToAnimate: [null, null, null],
+//         keepCountingDown: null,
+//         enemies: []
+//         }
+//   }
+
+
+//   componentDidMount(){
+//     document.addEventListener('keydown', (event)=>{this.uniKeyCode(event)})
+//     this.generateLaneCoords();
+
+
+//     // var keepCountingDown = setInterval(()=>this.countdown(), 1000);
+//     // this.setState({keepCountingDown: keepCountingDown});
+
+//     let interval;
+//     if(this.props.difficulty === 'Easy'){
+//         interval = 1000;
+//     } else if (this.props.difficulty === 'Hard'){
+//         interval = 500;
+//     } else if (this.props.difficulty === 'Lethal'){
+//         interval = 250;
+//     };
+//     var keepGeneratingEnemies = setInterval(()=>{
+//         this.generateEnemy();
+//     }, interval);
+
+//   }
+
+//   componentDidUpdate(){
+//     console.log("state in game:", this.state);
+//     if(this.props.timer <= 0){
+//         clearInterval(this.state.keepCountingDown);
+//         this.props.resetTimer();
+//         // clearInterval(this.state.keepGeneratingEnemies);
+//         this.mainMode();
+//     }
+//   }
+
+//   componentWillUnmount(){
+//     // clearInterval(this.state.keepCheckingEnemyPassed);
+//   }
+
+//   countdown(){
+//     this.props.countdown();
+//   }
+
+//   mainMode(){
+//     this.props.mainMode();
+//   }
+
+//   generateLaneCoords(){
+//     let topCoords = [185, 305, 425];
+//     let laneCoords = [];
+//     [...this.state.laneCoords].map((laneCoord, index) => {
+//         let coord = {
+//             top: topCoords[index],
+//             left: 10,
+//             width: 1220,
+//             height: 100,
+//             margin: 20
+//         };
+//         laneCoords.push(coord);
+//     });
+//     this.setState({laneCoords: laneCoords});
+//     this.generateCharacterPortraitsCoords(laneCoords);
+//     this.generateCharacterSprites(laneCoords);
+//   }
+
+//   generateCharacterPortraitsCoords(laneCoords){
+//     // console.log('generating portraits coords')
+
+//     let characterPortraitsCoords = laneCoords.map((coord, index)=>{
+//         if (coord === null || coord === undefined){
+//             return;
+//         } else {
+//             return {
+//                 top: coord.top,
+//                 left: coord.width-100,
+//                 width: 100,
+//                 height: 100,
+//                 margin: 20
+//             };
+//         }
+
+//     });
+//     this.setState({characterPortraitsCoords: characterPortraitsCoords})
+//   }
+
+//   generateCharacterSprites(laneCoords){
+//     let characterSpriteCoords = laneCoords.map((coord, index)=>{
+//         if(coord === null || coord === undefined){
+//             return;
+//         } else {
+//             return {
+//                 top: coord.top,
+//                 left: coord.width-200,
+//                 width: 100,
+//                 height: 100,
+//                 margin: 20
+//             };
+//         };
+//     });
+//     this.setState({characterSpriteCoords: characterSpriteCoords});
+//   }
+
+
+//   characterAttack(targetIndex){
+//     console.log('making char attack!');
+//     // console.log('index of char to animate', charIndex);
+//     let characters = document.getElementById('characters').children
+//     let characterToAnimate = characters[targetIndex];
+//     // console.log("char to animate", characterToAnimate)
+//     let simulateClick = () => {
+//         console.log('simulating click')
+//         let click = new MouseEvent('click', {
+//             bubbles:true,
+//             cancelable:false,
+//             view:window
+//         });
+//         let clicking = !characterToAnimate.dispatchEvent(click);
+//     }
+//     simulateClick();
+//   }
+
+//    uniKeyCode(event){
+//     console.log(this.state)
+//     event.stopImmediatePropagation();
+//     console.log(event.keyCode);
+//     let key = event.keyCode;
+//     let targetIndex;
+//     if (key === 81){
+//         console.log('pressed q');
+//         targetIndex = 0;
+//     } else if (key === 87){
+//         console.log('pressed w');
+//         targetIndex = 1;
+//     } else if (key === 69){
+//         console.log('pressed e');
+//         targetIndex = 2;
+//     } else {
+//         return
+//     };
+//     this.characterAttack(targetIndex);
+
+//    }
+
+
+
+// generateEnemy(){
+//     let randomLaneIndex = Math.floor(Math.random()*this.state.laneCoords.length)
+//     let randomLaneCoords = this.state.laneCoords[randomLaneIndex]
+//     let randomEnemyIndex = Math.floor(Math.random()*this.props.allCharacters.length)
+
+//     // console.log('targeting lane:', randomLaneIndex+1);
+//     // console.log('lane coords:', randomLaneCoords)
+//     let {top, left, width, height, margin} = randomLaneCoords;
+
+//     const moveRight = keyframes`
+//         from {transform: translate(${left}px);}
+//         to {transform: translate(${width-130}px);}
+//     `;
+
+//     let difficulty;
+//     if(this.props.difficulty === 'Easy'){
+//         difficulty = 3;
+//     } else if (this.props.difficulty === 'Hard'){
+//         difficulty = 2;
+//     } else if (this.props.difficulty === 'Lethal'){
+//         difficulty = 1.5;
+//     };
+
+//     let Enemy = styled.div`
+//         position: absolute;
+//         top: ${top}px;
+//         left: ${left}px;
+//         height: ${height}px;
+//         width: 100px;
+//         margin: 20px;
+//         animation: ${moveRight} ${difficulty}s linear infinite;
+//     `;
+
+//     let enemy = <Enemy>
+//                     <Spritesheet style={{width:100, height:100,}} image={this.props.allCharacters[randomEnemyIndex].reverse_spritesheet} widthFrame={260} heightFrame={260} steps={6} fps={12} startAt={1} endAt={6} loop={true}/>
+//                 </Enemy>
+//     // console.log('generating enemy:', enemy);
+//     // this.setState({
+//     //     enemies: [...this.state.enemies].concat(enemy),
+//     // })
+//     this.setState((state)=>{
+//         return {enemies: state.enemies.concat(enemy)}
+//     });
+
+//   }
+
+
+
+
+//   render() {
+//     let generateLanes = [...this.state.laneCoords].map((laneCoord, index)=>{
+//         if(laneCoord != null){
+//             return <div key={index} style={{
+//                 position: 'absolute',
+//                 top: laneCoord.top,
+//                 left: laneCoord.left,
+//                 width: laneCoord.width,
+//                 height: laneCoord.height,
+//                 margin: laneCoord.margin,
+//                 backgroundColor: 'black'
+//             }}/>
+//         }
+//     });
+
+//     let generateCharacterPortraits = [...this.state.characterPortraitsCoords].map((coord, index)=>{
+//         if(coord != null){
+//             // console.log('generating portrait!')
+
+//             return <div
+//                 key={index}
+//                 style={{
+//                     position: 'absolute',
+//                     top: coord.top,
+//                     left: coord.left+10,
+//                     width: coord.width,
+//                     height: coord.height,
+//                     margin: coord.margin,
+//                     background: `url(${this.props.partyList[index].battle_thumbnail}) top center`,
+//                     backgroundSize: 'cover'
+//                 }}/>
+//         };
+//     });
+
+//     let generateCharacterSprites = [...this.state.characterSpriteCoords].map((coord, index)=>{
+//         if(coord != null){
+//             const attack = keyframes`
+//                 0%  {background-position-x: 0px}
+//                 100%{background-position-x: -600px;}
+//             `;
+//             const Character = styled.div`
+//                     position: absolute;
+//                     top: ${coord.top}px;
+//                     left: ${coord.left+10}px;
+//                     width: ${coord.width}px;
+//                     height: ${coord.height}px;
+//                     margin: ${coord.margin}px;
+//                     background: url('${this.props.partyList[index].spritesheet}') left center;
+//                     background-size: cover;
+//                     animation: ${attack} .3s steps(6);
+//                 `;
+//             return <Character key={index} onClick={(event)=>{
+//                         const target = event.target;
+//                         target.style.animation = 'none';
+//                         setTimeout(function() {
+//                             target.style.animation = '';
+//                         }, 10);
+//                     }}/>
+
+//         };
+//     });
+
+//     let returnEnemies;
+//     if(this.state.enemies.length > 0){
+//         returnEnemies = [...this.state.enemies].map(enemy => {
+//             // console.log('returning', enemy)
+//             return enemy
+
+//         });
+//     } else {
+//         console.log('no enemies found')
+//     }
+
+
+
+
+//   return(
+//     <React.Fragment>
+//         <button onClick={()=>{this.mainMode()}}>BACK</button>
+//         <div>
+//             {generateLanes}
+//         </div>
+//         <div>
+//             {generateCharacterPortraits}
+//         </div>
+//         <div id="characters">
+//             {generateCharacterSprites}
+//         </div>
+//         <div>
+//             {returnEnemies}
+//         </div>
+//     </React.Fragment>
+//   );
+
+//   }
+
+// }
