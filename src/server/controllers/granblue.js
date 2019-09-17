@@ -84,7 +84,7 @@ module.exports = (db) => {
         if(err){
             console.log('err,', err);
         } else if (result === null){
-            res.send(null);
+            res.send('null');
         } else {
             console.log('sending:', result[0])
             res.send(result[0]);

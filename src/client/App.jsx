@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      userId: 1,
+      userId: null,
       username: null,
       password: null,
 
@@ -41,6 +41,30 @@ class App extends React.Component {
   //       password: this.state.password,
   //     })
   //   }).then(response => response.json())
+
+  submitLogin(){
+    var request = new XMLHttpRequest();
+    var appThis = this;
+    request.addEventListener("load", function(){
+      let responseData = JSON.parse( this.responseText );
+      console.log( 'resdata::', responseData );
+      if (responseData === null){
+        console.log('Login failed: no resdata')
+      } else {
+        console.log('parsed resdata:', responseData)
+        console.log('login successful')
+        appThis.setState({userId: responseData.id})
+      }
+    });
+
+    let data = {
+        username: this.state.username,
+        password: this.state.password
+    };
+    request.open("POST", '/users/login');
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(data));
+  }
 
 
   //   // .then(response => this.setState({userId: response.id}))
