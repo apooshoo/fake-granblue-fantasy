@@ -73,21 +73,29 @@ class App extends React.Component {
 
 
   submitRegister(){
-    console.log('registering')
-    console.log(this.state)
+    var request = new XMLHttpRequest();
+    var appThis = this;
+    request.addEventListener("load", function(){
+      let responseData = JSON.parse( this.responseText );
+      console.log( 'resdata::', responseData );
+      if (responseData === null){
+        alert('Register failed! Try another username.')
+      } else {
+        console.log('parsed resdata:', responseData)
+        console.log('register successful')
+        appThis.setState({userId: responseData.id})
+      }
+    });
 
-    fetch('/users/register', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    let data = {
         username: this.state.username,
-        password: this.state.password,
-      })
-    }).then(response => response.json())
-    .then(response => console.log("Registering!!!!!!:", response))
+        password: this.state.password
+    };
+    request.open("POST", '/users/register');
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify(data));
+
+
   }
 
   componentDidUpdate(){

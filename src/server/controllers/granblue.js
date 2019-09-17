@@ -99,9 +99,10 @@ module.exports = (db) => {
         if(err){
             console.log('err,', err);
         } else if (result === null){
-            res.status(404).send('not found');
+            res.send('null');
         } else {
-            res.send(result);
+            console.log('sending back:', result[0])
+            res.send(result[0]);
         };
     });
   };
