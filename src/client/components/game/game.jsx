@@ -468,8 +468,7 @@ class Game extends React.Component {
     return(
         <React.Fragment>
             <div className={styles.background}>
-            <button id="generateEnemyBtn" onClick={()=>{this.generateEnemy()}}>GENERATE ENEMIES BTN</button>
-            <p>Score: {this.props.score}</p>
+            <h3 style={{height: "54px", marginLeft: "600px", paddingTop: "10px"}}>Score: {this.props.score}</h3>
             <div className={styles.lanesContainer}>
                 {generateLanes}
 

@@ -14,7 +14,6 @@ class App extends React.Component {
       username: null,
       password: null,
       music: '/music/login.mp3',
-      playing: 'true'
     };
   }
 
@@ -109,7 +108,7 @@ class App extends React.Component {
     console.log(trackNo)
     switch (trackNo){
         case 0:
-        this.setState({music: "/music/login.mp3", key: "/music/login.mp3"});
+        this.setState({music: "/music/login-page.mp3", key: "/music/login-page.mp3"});
         break;
         case 1:
         this.setState({music: "/music/main-theme.mp3", key: "/music/main-theme.mp3"});
@@ -130,6 +129,10 @@ class App extends React.Component {
     console.log('setting state', this.state.music)
   }
 
+  componentDidMount(){
+    this.changeMusic(0);
+  }
+
   render() {
     if(this.state.userId !== null){
         return (
@@ -146,10 +149,11 @@ class App extends React.Component {
                 changeMusic={(trackNo)=>{this.changeMusic(trackNo)}}
                 userId={this.state.userId}
             />
-            <ReactPlayer url={this.state.music} key={this.state.music} playing={this.state.playing} loop/>
+            <ReactPlayer url={this.state.music} key={this.state.music} playing loop/>
           </div>
         );
     } else {
+        // this.changeMusic(0)
         return(
             <div>
                 <img className={styles.backimg} src="https://images.alphacoders.com/877/thumb-1920-877952.jpg"/>
@@ -165,7 +169,7 @@ class App extends React.Component {
                     </div>
                     <div className="dropdown-divider"/>
                 </div>
-                <ReactPlayer url={this.state.music} key={this.state.music} playing={this.state.playing} loop/>
+                <ReactPlayer url="/music/login-page.mp3" playing loop/>
             </div>
         );
     };
