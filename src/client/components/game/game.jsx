@@ -1,3 +1,10 @@
+//LESSONS:
+//use the methods for managing the state. (coords)
+//return the elements below in the render
+
+//render enemies as components with props x values
+
+
 import React from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
 import styled, {keyframes} from 'styled-components';
@@ -15,12 +22,24 @@ class Game extends React.Component {
         keepCheckingEnemyPassed: null,
         keepCountingDown: null,
         keepGeneratingEnemies: null,
-        score: 0
+        // score: 0
     }
+  }
+
+  scoreHit(){
+    this.props.scoreHit();
+  }
+
+  scoreMiss(){
+    this.props.scoreMiss();
   }
 
   mainMode(){
     this.props.mainMode();
+  }
+
+  resetScore(){
+    this.props.resetScore();
   }
 
   generateCharacterPortraits(coordsArr){
@@ -235,15 +254,18 @@ class Game extends React.Component {
             console.log('bullseye!!')
             attackTarget.style = 'display: none';
             // this.setState({score: this.state.score + 3});
-            this.setState((state)=>{
-                return {score: state.score + 3}
-            })
+            // console.log("this:", this)
+            // this.setState((state)=>{
+            //     return {score: state.score + 3}
+            // })
             // console.log(attackTarget)
+            this.scoreHit();
         } else {
             // this.setState({score: this.state.score - 1});
-            this.setState((state)=>{
-                return {score: state.score - 1}
-            })
+            // this.setState((state)=>{
+            //     return {score: state.score - 1}
+            // })
+            this.scoreMiss();
             console.log('miss!')
         };
 
@@ -291,9 +313,10 @@ class Game extends React.Component {
 
             enemyPassed.style = 'display: none';
             console.log("enemy passed in lane", laneIndex+1);
-            this.setState((state)=>{
-                return {score: state.score - 1}
-            })
+            // this.setState((state)=>{
+            //     return {score: state.score - 1}
+            // })
+            this.scoreMiss();
 
             let characterPortraitToClick = document.getElementById('characterPortraits').children[laneIndex]
             // console.log(characterPortraitToClick)
@@ -322,6 +345,8 @@ class Game extends React.Component {
 
   componentDidMount(){
     // this.setState({timer: this.props.timer})
+    this.resetScore();
+    console.log("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", this.state)
     let lanesArr = document.querySelectorAll('.lane')
     let coordsArr = [];
     [...lanesArr].map(lane => {
@@ -450,7 +475,7 @@ class Game extends React.Component {
         <React.Fragment>
             <div className={styles.background}>
             <button id="generateEnemyBtn" onClick={()=>{this.generateEnemy()}}>GENERATE ENEMIES BTN</button>
-            <p>Score: {this.state.score}</p>
+            <p>Score: {this.props.score}</p>
             <div className={styles.lanesContainer}>
                 {generateLanes}
 

@@ -19,8 +19,21 @@ class Main extends React.Component {
         selectedChar: null,
         displayCharacter: null,
         timer: 10,
-        difficulty: 'Easy'
+        difficulty: 'Easy',
+        score: 0
     };
+  }
+
+  scoreHit(){
+    this.setState({score: this.state.score + 3});
+  }
+
+  scoreMiss(){
+    this.setState({score: this.state.score - 1});
+  }
+
+  resetScore(){
+    this.setState({score: 0});
   }
 
 
@@ -482,6 +495,10 @@ class Main extends React.Component {
                 timer={this.state.timer}
                 difficulty={this.state.difficulty}
                 allCharacters={this.state.allCharacters}
+                score={this.state.score}
+                scoreHit={()=>{this.scoreHit()}}
+                scoreMiss={()=>{this.scoreMiss()}}
+                resetScore={()=>{this.resetScore()}}
             />
             </div>
         );
