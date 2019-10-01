@@ -25,6 +25,10 @@ class Main extends React.Component {
     };
   }
 
+  changeMusic(trackNo){
+    this.props.changeMusic(trackNo);
+  }
+
   scoreHit(){
     this.setState({score: this.state.score + 3});
   }
@@ -76,6 +80,7 @@ class Main extends React.Component {
   componentDidMount(){
     let userId = this.props.userId;
     let mainThis = this;
+    this.changeMusic(1);
 
     var requestAll = new XMLHttpRequest();
     requestAll.addEventListener("load", function(){

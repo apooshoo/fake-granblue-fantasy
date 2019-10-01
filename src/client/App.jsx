@@ -3,8 +3,8 @@ import { hot } from 'react-hot-loader';
 
 import Main from './components/main/main';
 import Form from './components/form/form';
-import Iframe from 'react-iframe';
 import styles from './style.scss';
+import ReactPlayer from 'react-player';
 
 class App extends React.Component {
   constructor() {
@@ -13,7 +13,7 @@ class App extends React.Component {
       userId: null,
       username: null,
       password: null,
-      music: '/music/main-theme.mp3',
+      music: '/music/login.mp3',
     };
   }
 
@@ -104,6 +104,29 @@ class App extends React.Component {
     console.log(this.state)
   }
 
+  changeMusic(trackNo){
+    switch (trackNo){
+        case 0:
+        this.setState({music: "/music/login.mp3"});
+        break;
+        case 1:
+        this.setState({music: "/music/main-theme.mp3"});
+        break;
+        case 2:
+        this.setState({music: "/music/alexiel.mp3"});
+        break;
+        case 3:
+        this.setState({music: "/music/europa.mp3"});
+        break;
+        case 4:
+        this.setState({music: "/music/grimnir.mp3"});
+        break;
+        case 5:
+        this.setState({music: "/music/yggdrasil.mp3"});
+        break;
+    };
+  }
+
   render() {
     if(this.state.userId !== null){
         return (
@@ -115,8 +138,10 @@ class App extends React.Component {
                     </button>
             </nav>
             <Main
+                changeMusic={(trackNo)=>{this.changeMusic(trackNo)}}
                 userId={this.state.userId}
             />
+            <ReactPlayer url={this.state.music} playing loop/>
           </div>
         );
     } else {
@@ -135,11 +160,7 @@ class App extends React.Component {
                     </div>
                     <div className="dropdown-divider"/>
                 </div>
-
-                <Iframe src='/music/europa.mp3'
-                    display="none"
-                    allow='autoplay; encrypted-media'
-                />
+                <ReactPlayer url={this.state.music} playing loop/>
             </div>
         );
     };
