@@ -408,7 +408,7 @@ class Main extends React.Component {
                         <li>Click the DRAW button to get characters</li>
                         <li>Click on characters to swap slots</li>
                         <li>Press PLAY once you have a party of three!</li>
-                        <li>Place your fingers on O, K and M and press to attack!</li>
+                        <li>Place your fingers on O, K and M to attack in lanes 1, 2 and 3!</li>
                         <li>Scoring: +3 for hits, -1 for misses</li>
                     </ul>
 
@@ -435,6 +435,8 @@ class Main extends React.Component {
                         <select className="form-control" style={{width: '31%'}} value={this.state.timer} onChange={()=>{this.changeTimer()}}>
                             <option value={10}>10s</option>
                             <option value={20}>20s</option>
+                            <option value={30}>30s</option>
+                            <option value={60}>60s</option>
                         </select>
                         <p style={{backgroundColor: 'white', width: '31%', borderRadius: '10%', paddingLeft: '10px'}}>High Score: {this.state.highScore}</p>
                     </div>

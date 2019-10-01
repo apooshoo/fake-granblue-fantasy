@@ -8,3 +8,18 @@ body{
   padding:20px;
   padding-top: 0px;
 }
+.background{
+	background-image: url('https://images.alphacoders.com/877/thumb-1920-877952.jpg');
+	max-width: 1334px;
+  max-height: 700px;
+  height: 500px;
+  background-size: 100%;
+}
+
+.backimg{
+	position: absolute;
+    width: 1334px;
+    top: 0;
+    left: 0;
+    height: 600px;
+}

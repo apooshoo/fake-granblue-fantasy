@@ -3,6 +3,8 @@ import { hot } from 'react-hot-loader';
 
 import Main from './components/main/main';
 import Form from './components/form/form';
+import Iframe from 'react-iframe';
+import styles from './style.scss';
 
 class App extends React.Component {
   constructor() {
@@ -11,7 +13,7 @@ class App extends React.Component {
       userId: null,
       username: null,
       password: null,
-
+      music: '/music/main-theme.mp3',
     };
   }
 
@@ -120,6 +122,7 @@ class App extends React.Component {
     } else {
         return(
             <div>
+                <img className={styles.backimg} src="https://images.alphacoders.com/877/thumb-1920-877952.jpg"/>
                 <div className="card mx-auto start-card" style={{width: '30%', marginTop: 300}}>
                     <div className="card-body px-4 py-3">
                         <h5 className="card-title font-weight-light text-center">Fake GB Fantasy</h5>
@@ -132,6 +135,11 @@ class App extends React.Component {
                     </div>
                     <div className="dropdown-divider"/>
                 </div>
+
+                <Iframe src='/music/europa.mp3'
+                    display="none"
+                    allow='autoplay; encrypted-media'
+                />
             </div>
         );
     };
