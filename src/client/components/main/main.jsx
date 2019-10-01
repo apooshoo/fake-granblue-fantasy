@@ -20,7 +20,8 @@ class Main extends React.Component {
         displayCharacter: null,
         timer: 10,
         difficulty: 'Easy',
-        score: 0
+        score: 0,
+        highScore: 0
     };
   }
 
@@ -250,6 +251,9 @@ class Main extends React.Component {
   mainMode(){
     console.log('changing to main mode');
     this.setState({mainState: 'main', setSlot: null, selectedChar: null});
+    if(this.state.score > this.state.highScore){
+        this.setState({highScore: this.state.score});
+    };
   }
 
   archiveMode(){
@@ -281,7 +285,14 @@ class Main extends React.Component {
 
   gameMode(){
     console.log('entering game mode!');
-    this.setState({mainState: 'game'})
+    let testParty = this.state.partyList.filter(char => {
+        return char != null;
+    });
+    if (testParty.length >= 3){
+        this.setState({mainState: 'game'})
+    } else {
+        alert("Please include three characters in your party!")
+    };
   }
 
   changeDifficulty(){
@@ -393,10 +404,12 @@ class Main extends React.Component {
                 </div>
 
                 <div className={styles.rightColumn}>
-                    <ul>
+                    <ul style={{backgroundColor: 'white', width: '61%', borderRadius: '10px', opacity: '.9'}}>
                         <li>Click the DRAW button to get characters</li>
-                        <li>Press PLAY once you have a party of three!</li>
                         <li>Click on characters to swap slots</li>
+                        <li>Press PLAY once you have a party of three!</li>
+                        <li>Place your fingers on O, K and M and press to attack!</li>
+                        <li>Scoring: +3 for hits, -1 for misses</li>
                     </ul>
 
 
@@ -423,6 +436,7 @@ class Main extends React.Component {
                             <option value={10}>10s</option>
                             <option value={20}>20s</option>
                         </select>
+                        <p style={{backgroundColor: 'white', width: '31%', borderRadius: '10%', paddingLeft: '10px'}}>High Score: {this.state.highScore}</p>
                     </div>
 
 

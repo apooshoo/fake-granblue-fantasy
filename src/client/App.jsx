@@ -122,7 +122,7 @@ class App extends React.Component {
             <div>
                 <div className="card mx-auto start-card" style={{width: '30%', marginTop: 300}}>
                     <div className="card-body px-4 py-3">
-                        <h5 className="card-title font-weight-light text-center">Fake Fantasy</h5>
+                        <h5 className="card-title font-weight-light text-center">Fake GB Fantasy</h5>
                         <div className="form-group" >
                             <input type="text" className="form-control" style={{width: '50%', display:'inline-block'}} placeholder="Username" onChange={()=>{this.changeUsername()}} value={this.state.username}/>
                             <input type="password" className="form-control" style={{width: '50%', display:'inline-block'}} onChange={()=>{this.changePassword()}} placeholder="Password" value={this.state.password}/>

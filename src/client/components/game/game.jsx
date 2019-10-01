@@ -203,22 +203,22 @@ class Game extends React.Component {
     }
 
     var key = event.keyCode;
-    if (key === 81){
-        console.log('pressed q');
+    if (key === 79){
+        console.log('pressed o');
         this.characterAttack(0);
         range = {
                 upper: 127,
                 lower: 0
             };
-    } else if (key === 87){
-        console.log('pressed w');
+    } else if (key === 75){
+        console.log('pressed k');
         this.characterAttack(1);
         range = {
                 upper: 237,
                 lower: 128
             };
-    } else if (key === 69){
-        console.log('pressed e');
+    } else if (key === 77){
+        console.log('pressed m');
         this.characterAttack(2);
         range = {
                 upper: 360,
@@ -254,17 +254,9 @@ class Game extends React.Component {
             console.log('bullseye!!')
             attackTarget.style = 'display: none';
             // this.setState({score: this.state.score + 3});
-            // console.log("this:", this)
-            // this.setState((state)=>{
-            //     return {score: state.score + 3}
-            // })
-            // console.log(attackTarget)
             this.scoreHit();
         } else {
             // this.setState({score: this.state.score - 1});
-            // this.setState((state)=>{
-            //     return {score: state.score - 1}
-            // })
             this.scoreMiss();
             console.log('miss!')
         };
