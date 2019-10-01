@@ -142,7 +142,7 @@ class App extends React.Component {
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <a className="nav-link col-3 offset-9 text-white" onClick={()=>{this.setState({userId: null})}}>Logout</a>
+                    <a className="nav-link col-3 offset-9 text-white" onClick={()=>{location.reload()}}>Logout</a>
 
             </nav>
             <Main
