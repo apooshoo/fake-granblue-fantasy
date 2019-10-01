@@ -21,7 +21,8 @@ class Main extends React.Component {
         timer: 10,
         difficulty: 'Easy',
         score: 0,
-        highScore: 0
+        highScore: 0,
+        musicChoice: 1
     };
   }
 
@@ -294,10 +295,18 @@ class Main extends React.Component {
         return char != null;
     });
     if (testParty.length >= 3){
-        this.setState({mainState: 'game'})
+        this.setState({mainState: 'game'});
+        this.changeMusic(this.state.musicChoice);
     } else {
         alert("Please include three characters in your party!")
     };
+  }
+
+  changeMusicChoice(){
+    console.log('changing music choice', event.target.value)
+    this.setState({musicChoice:parseInt(event.target.value)});
+    // this.changeMusic(event.target.value)
+
   }
 
   changeDifficulty(){
@@ -428,20 +437,27 @@ class Main extends React.Component {
                     </button>
 
                     <div>
-                        <button className={styles.drawbtn} style={{backgroundImage: "url('./main/draw-scrubbed.png')"}} onClick={()=>{this.gameMode()}}>
+                        <button className={styles.drawbtn} style={{backgroundImage: "url('./main/draw-scrubbed.png')", display: "block"}} onClick={()=>{this.gameMode()}}>
                         PLAY
                         </button>
 
-                        <select className="form-control" style={{width: '31%'}} value={this.state.difficulty} onChange={()=>{this.changeDifficulty()}}>
+                        <select className="form-control" style={{width: '31%', display: "inline-block"}} value={this.state.difficulty} onChange={()=>{this.changeDifficulty()}}>
                             <option value="Easy">Easy</option>
                             <option value="Hard">Hard</option>
                             <option value="Lethal">Lethal</option>
                         </select>
-                        <select className="form-control" style={{width: '31%'}} value={this.state.timer} onChange={()=>{this.changeTimer()}}>
+                        <select className="form-control" style={{width: '31%', display: "inline-block"}} value={this.state.timer} onChange={()=>{this.changeTimer()}}>
                             <option value={10}>10s</option>
                             <option value={20}>20s</option>
                             <option value={30}>30s</option>
                             <option value={60}>60s</option>
+                        </select>
+                        <select className="form-control" style={{width: '31%', display: "inline-block"}} value={this.state.musicChoice} onChange={()=>{this.changeMusicChoice(this.state.musicChoice)}}>
+                            <option value={1}>Default Music</option>
+                            <option value={2}>Alexiel</option>
+                            <option value={3}>Europa</option>
+                            <option value={4}>Grimnir</option>
+                            <option value={5}>Yggdrasil</option>
                         </select>
                         <p style={{backgroundColor: 'white', width: '31%', borderRadius: '10%', paddingLeft: '10px'}}>High Score: {this.state.highScore}</p>
                     </div>
@@ -520,6 +536,8 @@ class Main extends React.Component {
                 scoreHit={()=>{this.scoreHit()}}
                 scoreMiss={()=>{this.scoreMiss()}}
                 resetScore={()=>{this.resetScore()}}
+                musicChoice={this.state.musicChoice}
+                changeMusic={(trackNo)=>{this.changeMusic(trackNo)}}
             />
             </div>
         );

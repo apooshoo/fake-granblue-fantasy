@@ -14,6 +14,7 @@ class App extends React.Component {
       username: null,
       password: null,
       music: '/music/login.mp3',
+      playing: 'true'
     };
   }
 
@@ -105,43 +106,47 @@ class App extends React.Component {
   }
 
   changeMusic(trackNo){
+    console.log(trackNo)
     switch (trackNo){
         case 0:
-        this.setState({music: "/music/login.mp3"});
+        this.setState({music: "/music/login.mp3", key: "/music/login.mp3"});
         break;
         case 1:
-        this.setState({music: "/music/main-theme.mp3"});
+        this.setState({music: "/music/main-theme.mp3", key: "/music/main-theme.mp3"});
         break;
         case 2:
-        this.setState({music: "/music/alexiel.mp3"});
+        this.setState({music: "/music/alexiel.mp3", key:"/music/alexiel.mp3"});
         break;
         case 3:
-        this.setState({music: "/music/europa.mp3"});
+        this.setState({music: "/music/europa.mp3", key: "/music/europa.mp3"});
         break;
         case 4:
-        this.setState({music: "/music/grimnir.mp3"});
+        this.setState({music: "/music/grimnir.mp3", key: "/music/grimnir.mp3"});
         break;
         case 5:
-        this.setState({music: "/music/yggdrasil.mp3"});
+        this.setState({music: "/music/yggdrasil.mp3", key: "/music/yggdrasil.mp3"});
         break;
     };
+    console.log('setting state', this.state.music)
   }
 
   render() {
     if(this.state.userId !== null){
         return (
           <div>
-            <nav className="navbar navbar-expand-lg sticky-top d-print navbar-dark bg-dark" id="navbar">
-                    <a className="navbar-brand" href="/items/"><img src="/dollar.png" width="40" height="40" className="mr-3" alt=""/>Fake Granblue Fantasy</a>
+            <nav className="navbar navbar-expand-lg sticky-top d-print navbar-dark bg-dark row" id="navbar">
+                    <a className="navbar-brand" href="#"><img src="/dollar.png" width="40" height="40" className="mr-3" alt=""/>Fake Granblue Fantasy</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    <a className="nav-link col-3 offset-9 text-white" onClick={()=>{this.setState({userId: null})}}>Logout</a>
+
             </nav>
             <Main
                 changeMusic={(trackNo)=>{this.changeMusic(trackNo)}}
                 userId={this.state.userId}
             />
-            <ReactPlayer url={this.state.music} playing loop/>
+            <ReactPlayer url={this.state.music} key={this.state.music} playing={this.state.playing} loop/>
           </div>
         );
     } else {
@@ -160,7 +165,7 @@ class App extends React.Component {
                     </div>
                     <div className="dropdown-divider"/>
                 </div>
-                <ReactPlayer url={this.state.music} playing loop/>
+                <ReactPlayer url={this.state.music} key={this.state.music} playing={this.state.playing} loop/>
             </div>
         );
     };

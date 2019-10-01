@@ -36,6 +36,7 @@ class Game extends React.Component {
 
   mainMode(){
     this.props.mainMode();
+    this.props.changeMusic(1);
   }
 
   resetScore(){
@@ -159,19 +160,19 @@ class Game extends React.Component {
 
   }
 
-  clickToGenerateEnemy(){
-    let generateEnemyBtn = document.getElementById('generateEnemyBtn');
-    let simulateClick = () => {
-        console.log('simulating click')
-        let click = new MouseEvent('click', {
-            bubbles:true,
-            cancelable:false,
-            view:window
-        });
-        let clicking = !generateEnemyBtn.dispatchEvent(click);
-    }
-    simulateClick();
-  }
+  // clickToGenerateEnemy(){
+  //   let generateEnemyBtn = document.getElementById('generateEnemyBtn');
+  //   let simulateClick = () => {
+  //       console.log('simulating click')
+  //       let click = new MouseEvent('click', {
+  //           bubbles:true,
+  //           cancelable:false,
+  //           view:window
+  //       });
+  //       let clicking = !generateEnemyBtn.dispatchEvent(click);
+  //   }
+  //   simulateClick();
+  // }
 
   characterAttack(charIndex){
     console.log('making char attack!');
@@ -193,6 +194,7 @@ class Game extends React.Component {
   }
 
   uniKeyCode(event) {
+    console.log(this.state.laneCoords)
     event.stopImmediatePropagation();
     let enemies = Array.from(document.getElementById('enemies').children)
     // console.log(this.state.laneCoords)
@@ -361,7 +363,7 @@ class Game extends React.Component {
     } else if (this.props.difficulty === 'Lethal'){
         interval = 250;
     };
-    var keepGeneratingEnemies = setInterval(()=>this.clickToGenerateEnemy(), interval);
+    var keepGeneratingEnemies = setInterval(()=>this.generateEnemy(), interval);
     this.setState({keepGeneratingEnemies: keepGeneratingEnemies});
 
     var keepCheckingEnemyPassed = setInterval(()=>this.checkEnemyPassed(), 100);
